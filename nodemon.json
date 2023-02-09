@@ -1,0 +1,6 @@
+{
+  "env": {
+    "DATABASE_USERNAME": "admin",
+    "DATABASE_PASSWORD": "admin123"
+  }
+}
