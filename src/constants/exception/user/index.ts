@@ -1,0 +1,1 @@
+export const IGNORE_FIELD_USER = ['-password'];

@@ -21,7 +21,8 @@ const UserSchema = new Schema<User>({
     type: Number
   },
   validated: {
-    type: Boolean
+    type: Boolean,
+    default: false
   }
 });
 

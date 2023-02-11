@@ -2,12 +2,14 @@ import express from 'express';
 import mongoose from 'mongoose';
 import { configCors } from './config/cors';
 import { AppRouter } from './config/router';
+import { configMail } from './utils/mail';
 
 const app = express();
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+configMail();
 app.use(configCors);
 
 AppRouter.forEach(config => {

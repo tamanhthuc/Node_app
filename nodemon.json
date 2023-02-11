@@ -1,6 +1,8 @@
 {
   "env": {
     "DATABASE_USERNAME": "admin",
-    "DATABASE_PASSWORD": "admin123"
+    "DATABASE_PASSWORD": "admin123",
+    "SENDGRID_API": "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",
+    "ADMIN_EMAIL": "AnhNDH.B19CN022@stu.ptit.edu.vn"
   }
 }

@@ -4,6 +4,7 @@ import { UserModel } from "../../../model/user";
 
 export const registerValidator = [
   body("email")
+    .not()
     .isEmpty()
     .withMessage("Email is required")
     .custom(async (email: string, { req }) => {
@@ -17,7 +18,7 @@ export const registerValidator = [
         return Promise.reject("Server Internal Error");
       }
     }),
-  body('password').isEmpty().withMessage("Password is required")
+  body('password').not().isEmpty().withMessage("Password is required")
   .custom((password: string, {req}) => {
     const isValidPassword = PASSWORD_REGEX.test(password);
     if (!isValidPassword) {
@@ -25,5 +26,5 @@ export const registerValidator = [
     }
     return true;
   }),
-  body('phone_number').isEmpty().withMessage("Phone number is required")
+  body('phone_number').not().isEmpty().withMessage("Phone number is required")
 ];
