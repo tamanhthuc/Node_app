@@ -35,74 +35,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-var jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
-var user_1 = require("../../../constants/exception/user");
-var jwt_1 = require("../../../constants/jwt");
-var user_2 = require("../../../model/user");
-var response_1 = require("../../../response");
-var mail_1 = require("../../../utils/mail");
-var random_1 = require("../../../utils/random");
-;
-var loginController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var email, user, isValidated, otp, token, err_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+var user_1 = require("../../constants/exception/user");
+var user_2 = require("../../model/user");
+var response_1 = require("../../response");
+var userMiddleware = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var userId, user, err_1;
+    var _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
-                _a.trys.push([0, 5, , 6]);
-                email = req.body.email;
-                return [4 /*yield*/, user_2.UserModel.findOne({ email: email }, user_1.IGNORE_FIELD_USER)];
+                _b.trys.push([0, 2, , 3]);
+                userId = (_a = req.user) === null || _a === void 0 ? void 0 : _a.userId;
+                if (!userId) {
+                    return [2 /*return*/, res.status(403).json(new response_1.ResponseEntity({
+                            code: 403,
+                            message: 'Unauthenticated'
+                        }))];
+                }
+                return [4 /*yield*/, user_2.UserModel.findById(userId).select(user_1.IGNORE_FIELD_USER).lean()];
             case 1:
-                user = _a.sent();
+                user = _b.sent();
                 if (!user) {
-                    throw new Error("User is not exist");
+                    return [2 /*return*/, res.status(404).json(new response_1.ResponseEntity({
+                            code: 404,
+                            message: 'User is not found'
+                        }))];
                 }
                 ;
-                isValidated = user === null || user === void 0 ? void 0 : user.validated;
-                if (!!isValidated) return [3 /*break*/, 4];
-                otp = (0, random_1.random)(1000, 9999);
-                return [4 /*yield*/, (0, mail_1.sendMail)({
-                        to: email,
-                        subject: 'OTP for validation the app',
-                        html: "<p>OTP for validation the account: " + otp + "</p>"
-                    })];
+                req.userInfo = user;
+                next();
+                return [3 /*break*/, 3];
             case 2:
-                _a.sent();
-                user.validated = false;
-                user.otp = otp;
-                return [4 /*yield*/, user.save()];
-            case 3:
-                _a.sent();
-                return [2 /*return*/, res.status(403).json(new response_1.ResponseEntity({
-                        message: 'Sent OTP to the email: ' + email,
-                        code: 403,
-                    }))];
-            case 4:
-                ;
-                token = jsonwebtoken_1.default.sign({
-                    userId: user._id,
-                    email: email
-                }, jwt_1.KEY_GENERATE_TOKEN, {
-                    expiresIn: '14d'
-                });
-                res.json(new response_1.ResponseEntity({
-                    message: 'OK',
-                    code: 200,
-                    data: {
-                        user: user,
-                        token: token
-                    }
-                }));
-                return [3 /*break*/, 6];
-            case 5:
-                err_1 = _a.sent();
+                err_1 = _b.sent();
                 next(err_1);
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); };
-exports.default = loginController;
+exports.default = userMiddleware;
