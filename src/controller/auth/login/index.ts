@@ -40,7 +40,9 @@ const loginController: RequestHandler<any, ResponseEntity, LoginControllerReques
     const token = jwt.sign({
       userId: user._id,
       email
-    }, KEY_GENERATE_TOKEN);
+    }, KEY_GENERATE_TOKEN, {
+      expiresIn: '14d'
+    });
 
     res.json(new ResponseEntity({
       message: 'OK',
