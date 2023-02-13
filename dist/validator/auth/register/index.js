@@ -77,5 +77,6 @@ exports.registerValidator = [
         }
         return true;
     }),
-    (0, express_validator_1.body)('phone_number').not().isEmpty().withMessage("Phone number is required")
+    (0, express_validator_1.body)('phone_number').isMobilePhone('any').withMessage("Phone number is required"),
+    (0, express_validator_1.body)('username').not().isEmpty().withMessage('Username is required')
 ];
