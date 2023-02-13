@@ -46,7 +46,7 @@ var createShopController = function (req, res, next) { return __awaiter(void 0, 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 3, , 4]);
+                _a.trys.push([0, 4, , 5]);
                 userId = req.user.userId;
                 return [4 /*yield*/, shop_1.default.findOne({ owner: userId })];
             case 1:
@@ -62,19 +62,21 @@ var createShopController = function (req, res, next) { return __awaiter(void 0, 
                     owner: userId,
                 });
                 return [4 /*yield*/, shop.save()];
-            case 2:
+            case 2: return [4 /*yield*/, (_a.sent()).populate('owner')];
+            case 3:
                 shopInfo = _a.sent();
+                console.log(shopInfo);
                 res.json(new response_1.ResponseEntity({
                     code: 200,
                     message: 'OK',
                     data: shopInfo
                 }));
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 5];
+            case 4:
                 err_1 = _a.sent();
                 next(err_1);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); };

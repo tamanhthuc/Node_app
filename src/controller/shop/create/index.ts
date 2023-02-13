@@ -15,7 +15,8 @@ const createShopController: RequestHandler<any, ResponseEntity> = async (req, re
     const shop = new ShopModel({
       owner: userId,
     });
-    const shopInfo = await shop.save();
+    const shopInfo = await (await shop.save()).populate('owner');
+    console.log(shopInfo);
     res.json(new ResponseEntity({
       code: 200,
       message: 'OK',
