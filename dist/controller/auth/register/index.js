@@ -47,12 +47,12 @@ var mail_1 = require("../../../utils/mail");
 var user_1 = require("../../../model/user");
 ;
 var registerController = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, email, password, phone_number, hash, otp, response, newUser, data, err_1;
+    var _a, email, password, phone_number, username, hash, otp, response, newUser, data, err_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
                 _b.trys.push([0, 4, , 5]);
-                _a = req.body, email = _a.email, password = _a.password, phone_number = _a.phone_number;
+                _a = req.body, email = _a.email, password = _a.password, phone_number = _a.phone_number, username = _a.username;
                 return [4 /*yield*/, bcrypt_1.default.hash(password, encrypt_1.SALT_ROUND)];
             case 1:
                 hash = _b.sent();
@@ -69,7 +69,8 @@ var registerController = function (req, res, next) { return __awaiter(void 0, vo
                     password: hash,
                     phone_number: phone_number,
                     otp: otp,
-                    validated: false
+                    validated: false,
+                    username: username
                 });
                 return [4 /*yield*/, newUser.save()];
             case 3:

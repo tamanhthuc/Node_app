@@ -10,11 +10,12 @@ interface RegisterControllerBody {
   email: string;
   password: string;
   phone_number: string;
+  username: string;
 };
 
 const registerController: RequestHandler<any, ResponseEntity, RegisterControllerBody> = async (req, res, next) => {
   try{
-    const { email, password, phone_number } = req.body;
+    const { email, password, phone_number, username } = req.body;
     const hash = await bcrypt.hash(password, SALT_ROUND);
     const otp = random(1000, 9999);
 
@@ -29,7 +30,8 @@ const registerController: RequestHandler<any, ResponseEntity, RegisterController
       password: hash,
       phone_number: phone_number,
       otp: otp,
-      validated: false
+      validated: false,
+      username
     });
 
     const data = await newUser.save();

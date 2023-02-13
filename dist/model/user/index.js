@@ -16,7 +16,8 @@ var UserSchema = new mongoose_1.Schema({
         type: String,
     },
     username: {
-        type: String
+        type: String,
+        required: true
     },
     otp: {
         type: Number

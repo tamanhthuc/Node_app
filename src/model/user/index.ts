@@ -15,7 +15,8 @@ const UserSchema = new Schema<User>({
     type: String,
   },
   username: {
-    type: String
+    type: String,
+    required: true
   },
   otp: {
     type: Number
