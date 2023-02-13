@@ -5,7 +5,8 @@ const ShopModel = new Schema<Shop>({
   owner: {
     type: Types.ObjectId,
     unique: true,
-    required: true
+    required: true,
+    ref: 'user'
   },
   time_creation: {
     type: Number,

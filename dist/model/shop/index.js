@@ -5,7 +5,8 @@ var ShopModel = new mongoose_1.Schema({
     owner: {
         type: mongoose_1.Types.ObjectId,
         unique: true,
-        required: true
+        required: true,
+        ref: 'user'
     },
     time_creation: {
         type: Number,
