@@ -21,9 +21,11 @@ router_1.AppRouter.forEach(function (config) {
 app.use(errors_1.default);
 mongoose_1.default.set('strictQuery', true);
 mongoose_1.default.connect("mongodb+srv://" + process.env.DATABASE_USERNAME + ":" + process.env.DATABASE_PASSWORD + "@cluster0.bhp9h.mongodb.net/app-api?retryWrites=true&w=majority").then(function (response) {
+    console.log('DB connnection successful');
 }).catch(function (err) {
     console.log(err);
 });
 app.listen(process.env.PORT || 3000, function () {
+    console.log("app running on port: 3000");
     // do something
 });

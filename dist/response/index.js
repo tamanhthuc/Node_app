@@ -7,8 +7,10 @@ var ResponseEntity = /** @class */ (function () {
         this.code = 200;
         this.message = 'OK';
         this.data = undefined;
-        var code = props.code, message = props.message, data = props.data;
+        this.result = undefined;
+        var code = props.code, message = props.message, result = props.result, data = props.data;
         this.code = code;
+        this.result = result;
         this.data = data;
         this.message = message;
     }

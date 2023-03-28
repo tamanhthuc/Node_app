@@ -4,6 +4,7 @@ import authenticationMiddleware from "../../middleware/authentication";
 import userMiddleware from "../../middleware/user";
 import validatorMiddleware from "../../middleware/validator";
 import { createProductValidator } from "../../validator/product/create";
+import gelAllProductController from "../../controller/product/getList";
 
 const router = Router();
 
@@ -15,5 +16,7 @@ router.post(
   validatorMiddleware,
   createProductController
 );
+
+router.post("/listing", gelAllProductController)
 
 export default router;
